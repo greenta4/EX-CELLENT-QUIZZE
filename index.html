@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EX- CELLENT QUIZZ - Probatoire TI</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+.container { max-width: 800px; margin: 0 auto; background: white; border-radius: 20px; padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+.header { text-align: center; margin-bottom: 25px; }
+.logo { width: 140px; height: 140px; margin: 0 auto 15px; border-radius: 25px; box-shadow: 0 8px 25px rgba(102,126,234,0.4); display: block; }
+    h1 { text-align: center; color: #667eea; margin-bottom: 5px; font-size: 32px; font-weight: 800; }
+.subtitle { text-align: center; color: #666; margin-bottom: 20px; font-size: 18px; font-weight: 500; }
+.register-form { max-width: 400px; margin: 0 auto; }
+.register-form h2 { text-align: center; color: #667eea; margin-bottom: 20px; }
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
+.form-group input { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px; }
+.form-group input:focus { border-color: #667eea; outline: none; }
+.settings { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
+    select, button { padding: 12px 20px; border: 2px solid #667eea; border-radius: 10px; font-size: 16px; cursor: pointer; }
+    button { background: #667eea; color: white; font-weight: bold; transition: 0.3s; }
+    button:hover { background: #764ba2; transform: scale(1.05); }
+.quiz-header { display: flex; justify-content: space-between; margin-bottom: 20px; font-weight: bold; font-size: 18px; }
+    #timer { color: #4A90E2; font-size: 18px; }
+.question { font-size: 20px; margin-bottom: 20px; color: #333; line-height: 1.5; }
+.options { display: grid; gap: 12px; }
+.option { padding: 15px; border: 2px solid #ddd; border-radius: 10px; cursor: pointer; transition: 0.3s; font-size: 16px; }
+.option:hover { background: #f0f0ff; border-color: #667eea; }
+.option.correct { background: #d4edda; border-color: #28a745; }
+.option.wrong { background: #f8d7da; border-color: #dc3545; }
+.option.disabled { pointer-events: none; opacity: 0.7; }
+.explanation { margin-top: 15px; padding: 15px; background: #e7f3ff; border-left: 4px solid #2196F3; display: none; border-radius: 5px; }
+.score { text-align: center; font-size: 28px; margin: 20px 0; color: #667eea; font-weight: bold; }
+.appreciation { text-align: center; font-size: 22px; margin-bottom: 15px; font-weight: bold; }
+.welcome-msg { text-align: center; font-size: 20px; margin-bottom: 15px; color: #333; }
+.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImdyYWRpZW50IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzY2N2VlYSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzc2NGJhMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxNDAiIGhlaWdodD0iMTQwIiByeD0iMjgiIGZpbGw9InVybCgjZ3JhZGllbnQpIi8+PHBhdGggZD0iTTM1IDQ1IEw3MCAzMCBMMTA1IDQ1IEw3MCA2MCBaIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC45Ii8+PHJlY3QgeD0iNDUiIHk9IjY1IiB3aWR0aD0iNTAiIGhlaWdodD0iMzUiIHJ4PSI1IiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC45Ii8+PHBhdGggZD0iTTcwIDU1IEw4MCA3MCBMNjAgNzAgWiIgZmlsbD0iI0ZGRDcwMCIvPjx0ZXh0IHg9IjcwIiB5PSIxMTUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMyIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtd2VpZ2h0PSI3MDAiIGxldHRlci1zcGFjaW5nPSIxIj5FWC1DRUxMRU5UPC90ZXh0Pjwvc3ZnPg==" alt="Logo EX-CELLENT" class="logo">
+        <h1>EX- CELLENT QUIZZ</h1>
+        <p class="subtitle">Préparation au Probatoire TI</p>
+    </div>
+
+    <div id="register" class="register-form">
+        <h2>Inscription</h2>
+        <div class="form-group">
+            <label>Nom complet</label>
+            <input type="text" id="nom" placeholder="Ex: DUPONT Jean">
+        </div>
+        <div class="form-group">
+            <label>Établissement</label>
+            <input type="text" id="etablissement" placeholder="Ex: Lycée Bilingue de Douala">
+        </div>
+        <button onclick="goToSettings()" style="width: 100%; margin-top: 10px;">Continuer</button>
+    </div>
+
+    <div id="settings" class="settings hidden">
+        <div class="welcome-msg" id="welcomeMsg"></div>
+        <select id="matiere">
+            <option value="all">Toutes Matières</option>
+            <option value="algo">Algorithmique</option>
+            <option value="bd">Bases de Données</option>
+            <option value="reseau">Réseaux</option>
+            <option value="prog">Programmation</option>
+            <option value="web">Web & Bureautique</option>
+        </select>
+        <button onclick="startQuiz()">Commencer le Quizz</button>
+    </div>
+
+    <div id="quiz" class="hidden">
+        <div class="quiz-header">
+            <span id="questionCount">Question 1/20</span>
+            <span id="timer">⏱️ 30s</span>
+        </div>
+        <div class="question" id="questionText"></div>
+        <div class="options" id="optionsContainer"></div>
+        <div class="explanation" id="explanation"></div>
+        <button onclick="nextQuestion()" id="nextBtn" class="hidden">Question Suivante</button>
+    </div>
+
+    <div id="result" class="hidden">
+        <div class="welcome-msg" id="resultName"></div>
+        <div class="appreciation" id="appreciation"></div>
+        <div class="score" id="finalScore"></div>
+        <button onclick="downloadPDF()">Télécharger PDF des Résultats</button>
+        <button onclick="location.reload()">Recommencer</button>
+    </div>
+</div>
+
+<script>
+let userName = ""; let userSchool = "";
+
+const questions = {
+algo:[{q:"Quelle est la complexité d'une recherche dichotomique?",options:["O(n)","O(log n)","O(n²)","O(1)"],answer:1,exp:"La recherche dichotomique divise le tableau en 2 a chaque etape"},{q:"Que fait une boucle for?",options:["Repete tant qu'une condition est vraie","Repete un nombre de fois defini","Execute une seule fois","Arrete le programme"],answer:1,exp:"La boucle for repete un bloc de code un nombre precis de fois"},{q:"Qu'est-ce qu'un algorithme?",options:["Un langage de programmation","Une suite d'instructions pour resoudre un probleme","Un type de variable","Un logiciel"],answer:1,exp:"Un algorithme est une suite finie d'instructions"},{q:"Quelle structure permet de faire un choix?",options:["Boucle","Condition","Fonction","Variable"],answer:1,exp:"La structure conditionnelle if else permet de faire un choix"},{q:"Que retourne 5 mod 2?",options:["0","1","2","2.5"],answer:1,exp:"5 mod 2 = 1 car 5 = 2*2 + 1"},{q:"Quel est le role d'une fonction?",options:["Stocker des donnees","Regrouper des instructions reutilisables","Afficher du texte","Creer une boucle"],answer:1,exp:"Une fonction regroupe des instructions qu'on peut reutiliser"},{q:"Que signifie recursivite?",options:["Une fonction qui s'appelle elle-meme","Une boucle infinie","Une variable globale","Un tableau"],answer:0,exp:"La recursivite est quand une fonction s'appelle elle-meme"},{q:"Quelle est la valeur de i apres: i=0; i++;",options:["0","1","2","Erreur"],answer:1,exp:"i++ incremente i de 1"},{q:"Que stocke un tableau?",options:["Une seule valeur","Plusieurs valeurs du meme type","Une fonction","Une condition"],answer:1,exp:"Un tableau stocke plusieurs valeurs du meme type"},{q:"Que fait break dans une boucle?",options:["Passe a l'iteration suivante","Arrete la boucle","Recommence la boucle","Rien"],answer:1,exp:"break permet de sortir immediatement d'une boucle"}],
+bd:[{q:"Que signifie SQL?",options:["Structured Query Language","Simple Query Logic","System Query Language","Structured Question List"],answer:0,exp:"SQL = Structured Query Language"},{q:"Quelle commande permet d'ajouter des donnees?",options:["SELECT","UPDATE","INSERT","DELETE"],answer:2,exp:"INSERT INTO permet d'ajouter des donnees"},{q:"Que fait SELECT * FROM Table?",options:["Supprime la table","Affiche toutes les colonnes","Compte les lignes","Cree la table"],answer:1,exp:"SELECT * affiche toutes les colonnes de la table"},{q:"Qu'est-ce qu'une cle primaire?",options:["Un mot de passe","Un identifiant unique","Une cle etrangere","Un index"],answer:1,exp:"La cle primaire identifie de facon unique chaque enregistrement"},{q:"Quelle clause filtre les resultats?",options:["ORDER BY","WHERE","GROUP BY","HAVING"],answer:1,exp:"WHERE permet de filtrer les enregistrements"},{q:"Que fait UPDATE?",options:["Ajoute des donnees","Modifie des donnees existantes","Supprime des donnees","Affiche des donnees"],answer:1,exp:"UPDATE modifie des enregistrements existants"},{q:"Qu'est-ce qu'une base de donnees relationnelle?",options:["Stocke des fichiers","Stocke des donnees dans des tables liees","Stocke des images","Stocke du code"],answer:1,exp:"Une BDD relationnelle organise les donnees en tables reliees"},{q:"Que signifie SGBD?",options:["Systeme de Gestion de Base de Donnees","Service General de Base de Donnees","Systeme Global de Donnees","Serveur de Gestion de Donnees"],answer:0,exp:"SGBD = Systeme de Gestion de Base de Donnees"},{q:"Quelle commande supprime une table?",options:["DELETE TABLE","DROP TABLE","REMOVE TABLE","CLEAR TABLE"],answer:1,exp:"DROP TABLE supprime definitivement une table"},{q:"Que fait COUNT(*)?",options:["Fait la somme","Compte le nombre de lignes","Affiche le max","Trie les donnees"],answer:1,exp:"COUNT compte le nombre d'enregistrements"}],
+reseau:[{q:"Quel est le role du protocole TCP?",options:["Adressage IP","Transmission fiable","Routage","Chiffrement"],answer:1,exp:"TCP garantit une transmission fiable avec controle d'erreurs"},{q:"Que signifie IP?",options:["Internet Provider","Internet Protocol","Internal Process","Input Protocol"],answer:1,exp:"IP = Internet Protocol, gere l'adressage"},{q:"Combien y a-t-il de couches dans le modele OSI?",options:["5","6","7","8"],answer:2,exp:"Le modele OSI a 7 couches"},{q:"Que fait un routeur?",options:["Connecte 2 PC","Relie differents reseaux","Amplifie le signal","Stocke des donnees"],answer:1,exp:"Le routeur achemine les paquets entre reseaux"},{q:"Quelle est l'adresse de bouclage?",options:["192.168.1.1","127.0.0.1","10.0.0.1","255.255.255.0"],answer:1,exp:"127.0.0.1 est l'adresse localhost"},{q:"Que signifie DNS?",options:["Domain Name System","Data Network Service","Digital Name Server","Domain Network System"],answer:0,exp:"DNS transforme les noms de domaine en adresses IP"},{q:"Quel protocole envoie les emails?",options:["HTTP","FTP","SMTP","POP3"],answer:2,exp:"SMTP est utilise pour envoyer des emails"},{q:"Que fait HTTP?",options:["Transfert de fichiers","Affichage de pages web","Envoi d'emails","Chat en ligne"],answer:1,exp:"HTTP permet de transferer des pages web"},{q:"Qu'est-ce qu'un pare-feu?",options:["Un antivirus","Un filtre de securite reseau","Un routeur","Un switch"],answer:1,exp:"Le pare-feu filtre le trafic reseau entrant et sortant"},{q:"Que signifie LAN?",options:["Large Area Network","Local Area Network","Long Access Network","Linked Area Network"],answer:1,exp:"LAN = Reseau Local"}],
+prog:[{q:"En Python, comment declarer une liste?",options:["()","[]","{}","<>"],answer:1,exp:"Les listes Python s'ecrivent entre crochets"},{q:"Que fait print() en Python?",options:["Lit une donnee","Affiche du texte","Cree une variable","Fait un calcul"],answer:1,exp:"print affiche des informations a l'ecran"},{q:"Quel mot-cle declare une fonction en Python?",options:["function","def","func","define"],answer:1,exp:"def est utilise pour declarer une fonction en Python"},{q:"Que retourne type(5)?",options:["int","float","str","bool"],answer:0,exp:"type(5) retourne int"},{q:"Comment commenter une ligne en Python?",options:["//","#","/* */","--"],answer:1,exp:"# permet de faire un commentaire sur une ligne"},{q:"Que fait len([1,2,3])?",options:["1","2","3","0"],answer:2,exp:"len retourne la longueur de la liste"},{q:"Quel type est Bonjour?",options:["int","float","str","list"],answer:2,exp:"Le texte entre guillemets est de type string"},{q:"Que fait append() sur une liste?",options:["Supprime un element","Ajoute un element a la fin","Trie la liste","Vide la liste"],answer:1,exp:"append ajoute un element a la fin de la liste"},{q:"Que signifie == en Python?",options:["Affectation","Comparaison d'egalite","Different de","Superieur a"],answer:1,exp:"== compare si deux valeurs sont egales"},{q:"Que fait input()?",options:["Affiche du texte","Lit une saisie utilisateur","Convertit un type","Arrete le programme"],answer:1,exp:"input permet de recuperer une saisie au clavier"}],
+web:[{q:"Que signifie HTML?",options:["HyperText Markup Language","High Tech Modern Language","Hyper Transfer Markup Language","Home Tool Markup Language"],answer:0,exp:"HTML = HyperText Markup Language"},{q:"Quelle balise cree un paragraphe?",options:["<p>","<div>","<span>","<br>"],answer:0,exp:"La balise p definit un paragraphe"},{q:"Que fait CSS?",options:["Structure la page","Style et mise en forme","Rend la page dynamique","Stocke des donnees"],answer:1,exp:"CSS sert a mettre en forme les pages web"},{q:"Quelle balise cree un lien?",options:["<link>","<a>","<href>","<url>"],answer:1,exp:"La balise a cree un lien hypertexte"},{q:"Que signifie URL?",options:["Uniform Resource Locator","Universal Reference Link","User Resource Location","Uniform Reference Language"],answer:0,exp:"URL = Adresse d'une ressource sur le web"},{q:"Quelle balise insere une image?",options:["<img>","<image>","<src>","<picture>"],answer:0,exp:"La balise img affiche une image"},{q:"Que fait JavaScript?",options:["Structure la page","Style la page","Rend la page interactive","Stocke les donnees"],answer:2,exp:"JavaScript rend les pages web dynamiques"},{q:"Quelle extension pour une page web?",options:[".doc",".html",".css",".js"],answer:1,exp:"Les pages web ont l'extension.html"},{q:"Que fait title?",options:["Titre dans la page","Titre de l'onglet","Gros titre","Sous-titre"],answer:1,exp:"title definit le titre affiche dans l'onglet du navigateur"},{q:"Que signifie WWW?",options:["World Wide Web","Web World Wide","World Web Wide","Wide World Web"],answer:0,exp:"WWW = World Wide Web"}
+]};
+let currentQuestions = []; let currentIndex = 0; let score = 0; let timeLeft = 30; let timerInterval; let answered = false;
+
+function goToSettings() { userName = document.getElementById('nom').value.trim(); userSchool = document.getElementById('etablissement').value.trim(); if(userName === "") { alert("Veuillez entrer votre nom"); return; } document.getElementById('register').classList.add('hidden'); document.getElementById('settings').classList.remove('hidden'); document.getElementById('welcomeMsg').textContent = `Bienvenue ${userName}!`; }
+function startQuiz() { const matiere = document.getElementById('matiere').value; let allQ = []; if(matiere === 'all') Object.values(questions).forEach(arr => allQ = allQ.concat(arr)); else allQ = questions[matiere]; currentQuestions = allQ.sort(() => 0.5 - Math.random()).slice(0, 20); document.getElementById('settings').classList.add('hidden'); document.getElementById('quiz').classList.remove('hidden'); showQuestion(); }
+function showQuestion() { clearInterval(timerInterval); timeLeft = 30; answered = false; startTimer(); const q = currentQuestions[currentIndex]; document.getElementById('questionCount').textContent = `Question ${currentIndex + 1}/${currentQuestions.length}`; document.getElementById('questionText').textContent = q.q; const container = document.getElementById('optionsContainer'); container.innerHTML = ''; q.options.forEach((opt, i) => { const div = document.createElement('div'); div.className = 'option'; div.textContent = opt; div.onclick = () => checkAnswer(i); container.appendChild(div); }); document.getElementById('explanation').style.display = 'none'; document.getElementById('nextBtn').classList.add('hidden'); }
+function startTimer() { updateTimerDisplay(); timerInterval = setInterval(() => { timeLeft--; updateTimerDisplay(); if(timeLeft <= 0) { clearInterval(timerInterval); if(!answered) checkAnswer(-1); } }, 1000); }
+function updateTimerDisplay() { const timerEl = document.getElementById('timer'); timerEl.textContent = `⏱️ ${timeLeft}s`; timerEl.style.color = timeLeft <= 10? 'red' : '#4A90E2'; }
+function checkAnswer(selected) { if(answered) return; answered = true; clearInterval(timerInterval); const q = currentQuestions[currentIndex]; const options = document.querySelectorAll('.option'); options.forEach(opt => opt.classList.add('disabled')); options[q.answer].classList.add('correct'); if(selected === q.answer) { score++; } else { if(selected!== -1) options[selected].classList.add('wrong'); } document.getElementById('explanation').textContent = "Explication: " + q.exp; document.getElementById('explanation').style.display = 'block'; document.getElementById('nextBtn').classList.remove('hidden'); }
+function nextQuestion() { currentIndex++; if(currentIndex < currentQuestions.length) showQuestion(); else showResult(); }
+function showResult() { document.getElementById('quiz').classList.add('hidden'); document.getElementById('result').classList.remove('hidden'); const percentage = Math.round((score / currentQuestions.length) * 100); document.getElementById('resultName').textContent = `Resultats de: ${userName} - ${userSchool}`; document.getElementById('finalScore').textContent = `Score Final: ${score}/${currentQuestions.length} - ${percentage}%`; let appreciationText = ""; if(percentage >= 80) appreciationText = "🌟 EXCELLENT!"; else if(percentage >= 50) appreciationText = "👍 BIEN!"; else appreciationText = "📚 IL FAUT TRAVAILLER!"; document.getElementById('appreciation').textContent = appreciationText; }
+function downloadPDF() { const { jsPDF } = window.jspdf; const doc = new jsPDF(); doc.text("EX- CELLENT QUIZZ - Attestation de Resultats", 20, 20); doc.text(`Nom: ${userName}`, 20, 35); doc.text(`Etablissement: ${userSchool}`, 20, 45); doc.text(`Score: ${score}/${currentQuestions.length}`, 20, 55); doc.text(`Pourcentage: ${Math.round((score / currentQuestions.length) * 100)}%`, 20, 65); doc.text(`Date: ${new Date().toLocaleDateString('fr-FR')}`, 20, 75); doc.save(`Resultat_${userName}.pdf`); }
+</script>
+</body>
+</html>
